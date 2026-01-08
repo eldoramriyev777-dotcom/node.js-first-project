@@ -1,0 +1,141 @@
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+          "url": "http://localhost:3000",
+          "description": "Local Development"
+        },
+        {
+          "url": "https://api.example.com",
+          "description": "Production Server"
+        }
+    ],
+    "info": {
+      "title": "Blog Admin API",
+      "version": "1.0.0",
+      "description": "Admin panel uchun CRUD API hujjati"
+    },
+    "paths": {
+        "/blog/   get": {
+            "get": {
+                "summary": "Get all blogs",
+                "tags": ["Blog"],
+                "responses": {
+                    "200": {
+                        "description": "Blogs fetched successfully"
+                    }
+                }
+            }
+        },
+        "/blog/post": {
+            "post": {
+                "summary": "Create a new blog",
+                "tags": ["Blog"],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": { "type": "string" },
+                                    "content": { "type": "string" },
+                                    "author": { "type": "string" }
+                                },
+                                "required": ["title", "content"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Blog created successfully"
+                    }
+                }
+            }
+        },
+        "/blog/delete/{id}": {
+            "delete": {
+                "summary": "Delete a blog",
+                "tags": ["Blog"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Blog deleted successfully"
+                    },
+                    "404": {
+                        "description": "Blog not found"
+                    }
+                }
+            }
+        },
+        "/blog/put/{id}": {
+            "put": {
+                "summary": "Update a blog",
+                "tags": ["Blog"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": { "type": "string" },
+                                    "content": { "type": "string" },
+                                    "author": { "type": "string" }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Blog updated successfully"
+                    },
+                    "404": {
+                        "description": "Blog not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    },
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ]
+}
+  
