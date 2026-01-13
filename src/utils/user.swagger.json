@@ -7,8 +7,12 @@
     },
     "servers": [
       {
-        "url": "https://blog-api.innerlogic.cloud/",
+        "url": "http://localhost:3000",
         "description": "Local Development"
+      },
+      {
+        "url": "https://blog-api.innerlogic.cloud/",
+        "description": "Production Server"
       }
     ],
     "paths": {
