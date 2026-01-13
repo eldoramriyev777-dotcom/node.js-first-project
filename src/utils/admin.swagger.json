@@ -6,7 +6,7 @@
           "description": "Local Development"
         },
         {
-          "url": "https://api.example.com",
+          "url": "https://blog-api.innerlogic.cloud/",
           "description": "Production Server"
         }
     ],
