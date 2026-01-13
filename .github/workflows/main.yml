@@ -1,0 +1,40 @@
+name: Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository clone
+        uses: actions/checkout@v4
+
+      - name: Node install
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }} # Server IP yoki domain
+          username: ubuntu
+          key: ${{ secrets.KEY }} # Private SSH key
+          port: 22
+          script: |
+            cd node.js-first-project/       
+            git stash         
+            git pull origin main --rebase    
+            pm2 stop index            
+            yarn  
+            pm2 restart index
+
+      - name: Dependencies
+        run: yarn add
+
+      - name: Build
+        run: yarn run build
