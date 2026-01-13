@@ -34,7 +34,7 @@ jobs:
             pm2 restart index
 
       - name: Dependencies
-        run: yarn add
+        run: yarn install
 
       - name: Build
-        run: yarn run build
+        run: yarn build
